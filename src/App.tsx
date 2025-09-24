@@ -29,12 +29,12 @@ const App = () => (
             <Route path="/cli" element={<CLITerminal />} />
             {/* Placeholder routes for future pages */}
             <Route path="/audit" element={<AuditResults />} />
-            <Route path="/reports" element={<div className="p-6"><h1 className="text-2xl font-bold">Reports</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/logs" element={<div className="p-6"><h1 className="text-2xl font-bold">Activity Logs</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/profiles" element={<div className="p-6"><h1 className="text-2xl font-bold">Security Profiles</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/rollback" element={<div className="p-6"><h1 className="text-2xl font-bold">Rollback Manager</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/settings" element={<div className="p-6"><h1 className="text-2xl font-bold">Settings</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/help" element={<div className="p-6"><h1 className="text-2xl font-bold">Help & Guide</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/logs" element={<ActivityLogs />} />
+            <Route path="/profiles" element={<SecurityProfiles />} />
+            <Route path="/rollback" element={<RollbackManager />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/help" element={<HelpGuide />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

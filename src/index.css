@@ -8,13 +8,13 @@
 @layer base {
   :root {
     /* Core color palette - cybersecurity theme */
-    --background: 250 255 255;
+    --background: 0 0% 100%;
     --foreground: 215 28% 17%;
 
-    --card: 255 255 255;
+    --card: 0 0% 100%;
     --card-foreground: 215 28% 17%;
 
-    --popover: 255 255 255;
+    --popover: 0 0% 100%;
     --popover-foreground: 215 28% 17%;
 
     /* Primary - Professional blue */
@@ -70,7 +70,7 @@
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --sidebar-background: 255 255 255;
+    --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 215 28% 17%;
     --sidebar-primary: 210 100% 56%;
     --sidebar-primary-foreground: 255 255 255;
@@ -217,7 +217,28 @@
 
   /* Hover lift effect */
   .hover-lift {
-    @apply transition-transform duration-200 hover:translate-y-[-2px];
+    @apply transition-transform duration-200 hover:scale-[1.02] md:hover:translate-y-[-2px];
+  }
+
+  /* Mobile responsive utilities */
+  .page-container {
+    @apply p-3 sm:p-4 md:p-6 max-w-full overflow-x-hidden;
+  }
+
+  .mobile-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6;
+  }
+
+  .mobile-flex {
+    @apply flex flex-col sm:flex-row gap-3 sm:gap-4;
+  }
+
+  .mobile-card {
+    @apply glass-card min-w-0 w-full;
+  }
+
+  .mobile-overflow {
+    @apply overflow-x-auto -mx-3 sm:mx-0 px-3 sm:px-0;
   }
 
   /* Pulse animation for compliance ring */

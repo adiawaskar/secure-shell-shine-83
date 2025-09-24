@@ -100,12 +100,12 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-6 space-y-6 min-h-screen bg-background">
+    <div className="page-container space-y-4 md:space-y-6 min-h-screen bg-background">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Security Dashboard</h1>
-          <p className="text-muted-foreground">Monitor and manage your system security posture</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+        <div className="min-w-0">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Security Dashboard</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">Monitor and manage your system security posture</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -140,7 +140,7 @@ export default function Dashboard() {
       </div>
 
       {/* Top Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="mobile-grid">
         <StatCard
           title="Overall Compliance"
           value={`${complianceMetrics.overall}%`}
@@ -180,9 +180,9 @@ export default function Dashboard() {
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
         {/* Compliance Overview */}
-        <Card className="lg:col-span-2 glass-card border-border/50">
+        <Card className="lg:col-span-2 mobile-card border-border/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-primary" />
@@ -225,7 +225,7 @@ export default function Dashboard() {
         </Card>
 
         {/* Quick Actions */}
-        <Card className="glass-card border-border/50">
+        <Card className="mobile-card border-border/50">
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>
             <CardDescription>Common security tasks</CardDescription>
@@ -260,9 +260,9 @@ export default function Dashboard() {
       </div>
 
       {/* Bottom Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         {/* Top Issues */}
-        <Card className="glass-card border-border/50">
+        <Card className="mobile-card border-border/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-warning" />
@@ -314,7 +314,7 @@ export default function Dashboard() {
         </Card>
 
         {/* Recent Activity */}
-        <Card className="glass-card border-border/50">
+        <Card className="mobile-card border-border/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-primary" />

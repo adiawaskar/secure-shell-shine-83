@@ -20,7 +20,7 @@ export function Layout({ children }: LayoutProps) {
         <div className="flex-1 flex flex-col">
           {/* Header */}
           <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="flex h-14 items-center justify-between px-6">
+            <div className="flex h-14 items-center justify-between px-3 sm:px-6">
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="p-2" />
                 <div className="hidden md:block">
@@ -63,7 +63,7 @@ export function Layout({ children }: LayoutProps) {
           </header>
 
           {/* Main Content */}
-          <main className="flex-1 overflow-auto">
+          <main className="flex-1 overflow-x-hidden overflow-y-auto w-full max-w-full">
             {children}
           </main>
         </div>

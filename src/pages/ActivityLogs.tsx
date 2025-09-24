@@ -168,12 +168,12 @@ export default function ActivityLogs() {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="page-container space-y-4 md:space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Activity Logs</h1>
-          <p className="text-muted-foreground">Monitor security events and system activities</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+        <div className="min-w-0">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Activity Logs</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">Monitor security events and system activities</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -189,9 +189,9 @@ export default function ActivityLogs() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <Card className="glass-card border-border/50">
-          <CardContent className="pt-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
+        <Card className="mobile-card border-border/50">
+          <CardContent className="pt-4 sm:pt-6">
             <div className="flex items-center gap-3">
               <Activity className="h-6 w-6 text-primary" />
               <div>
