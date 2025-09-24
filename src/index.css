@@ -158,7 +158,24 @@
   }
 
   .glass-card {
-    @apply glass rounded-lg p-6;
+    @apply glass rounded-lg p-4 sm:p-6;
+  }
+
+  /* Enhanced glow effects */
+  .glow-primary {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3), 0 0 40px hsl(var(--primary) / 0.1);
+  }
+
+  .glow-success {
+    box-shadow: 0 0 20px hsl(var(--success) / 0.3), 0 0 40px hsl(var(--success) / 0.1);
+  }
+
+  .glow-warning {
+    box-shadow: 0 0 20px hsl(var(--warning) / 0.3), 0 0 40px hsl(var(--warning) / 0.1);
+  }
+
+  .glow-critical {
+    box-shadow: 0 0 20px hsl(var(--critical) / 0.3), 0 0 40px hsl(var(--critical) / 0.1);
   }
 
   /* Terminal styling */
@@ -222,7 +239,7 @@
 
   /* Mobile responsive utilities */
   .page-container {
-    @apply p-3 sm:p-4 md:p-6 max-w-full overflow-x-hidden;
+    @apply p-3 sm:p-4 md:p-6 max-w-full overflow-x-hidden w-full;
   }
 
   .mobile-grid {
@@ -234,11 +251,20 @@
   }
 
   .mobile-card {
-    @apply glass-card min-w-0 w-full;
+    @apply glass-card min-w-0 w-full border-border/50;
   }
 
   .mobile-overflow {
     @apply overflow-x-auto -mx-3 sm:mx-0 px-3 sm:px-0;
+  }
+
+  /* Chart containers */
+  .chart-container {
+    @apply w-full min-w-0 overflow-hidden;
+  }
+
+  .chart-wrapper {
+    @apply relative w-full h-[200px] sm:h-[250px] md:h-[300px];
   }
 
   /* Pulse animation for compliance ring */

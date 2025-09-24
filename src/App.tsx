@@ -4,12 +4,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
-import Dashboard from "./pages/Dashboard";
+import EnhancedDashboard from "./pages/EnhancedDashboard";
 import CLITerminal from "./pages/CLITerminal";
 import AuditResults from "./pages/AuditResults";
-import Reports from "./pages/Reports";
+import EnhancedReports from "./pages/EnhancedReports";
 import ActivityLogs from "./pages/ActivityLogs";
-import SecurityProfiles from "./pages/SecurityProfiles";
+import EnhancedSecurityProfiles from "./pages/EnhancedSecurityProfiles";
 import RollbackManager from "./pages/RollbackManager";
 import Settings from "./pages/Settings";
 import HelpGuide from "./pages/HelpGuide";
@@ -25,13 +25,13 @@ const App = () => (
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<EnhancedDashboard />} />
             <Route path="/cli" element={<CLITerminal />} />
             {/* Placeholder routes for future pages */}
             <Route path="/audit" element={<AuditResults />} />
-            <Route path="/reports" element={<Reports />} />
+            <Route path="/reports" element={<EnhancedReports />} />
             <Route path="/logs" element={<ActivityLogs />} />
-            <Route path="/profiles" element={<SecurityProfiles />} />
+            <Route path="/profiles" element={<EnhancedSecurityProfiles />} />
             <Route path="/rollback" element={<RollbackManager />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/help" element={<HelpGuide />} />

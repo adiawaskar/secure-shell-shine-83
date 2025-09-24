@@ -24,7 +24,7 @@ export function Layout({ children }: LayoutProps) {
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="p-2" />
                 <div className="hidden md:block">
-                  <h2 className="text-lg font-semibold text-foreground">Multi-Platform System Hardening</h2>
+                  <h2 className="text-lg font-semibold text-foreground">SecureShell</h2>
                   <p className="text-sm text-muted-foreground">Professional Security Management</p>
                 </div>
               </div>

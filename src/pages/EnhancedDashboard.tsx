@@ -19,6 +19,7 @@ import {
   TrendingUp,
   TrendingDown,
   BarChart3,
+  PieChart,
   Target,
   Users,
   Server,
@@ -26,7 +27,10 @@ import {
   Network,
   Lock,
   Eye,
-  Zap
+  Zap,
+  Globe,
+  Cpu,
+  HardDrive
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell, BarChart, Bar, AreaChart, Area, RadialBarChart, RadialBar } from 'recharts';
 import { cn } from '@/lib/utils';
@@ -38,6 +42,40 @@ const SEVERITY_COLORS = {
   medium: '#eab308',
   low: '#22c55e'
 };
+
+const CHART_COLORS = ['#3b82f6', '#ef4444', '#f59e0b', '#22c55e', '#a855f7', '#06b6d4'];
+
+// Additional demo data for enhanced visualizations
+const severityDistribution = [
+  { name: 'Critical', value: 12, color: '#e11d48' },
+  { name: 'High', value: 28, color: '#f97316' },
+  { name: 'Medium', value: 45, color: '#eab308' },
+  { name: 'Low', value: 15, color: '#22c55e' }
+];
+
+const systemMetrics = [
+  { name: 'CPU', value: 68, color: '#3b82f6' },
+  { name: 'Memory', value: 82, color: '#ef4444' },
+  { name: 'Disk', value: 45, color: '#f59e0b' },
+  { name: 'Network', value: 73, color: '#22c55e' }
+];
+
+const weeklyData = [
+  { day: 'Mon', scans: 24, threats: 3, blocked: 18 },
+  { day: 'Tue', scans: 31, threats: 5, blocked: 22 },
+  { day: 'Wed', scans: 28, threats: 2, blocked: 15 },
+  { day: 'Thu', scans: 35, threats: 7, blocked: 28 },
+  { day: 'Fri', scans: 42, threats: 4, blocked: 31 },
+  { day: 'Sat', scans: 18, threats: 1, blocked: 12 },
+  { day: 'Sun', scans: 15, threats: 2, blocked: 8 }
+];
+
+const threatTypes = [
+  { name: 'Malware', value: 35, color: '#e11d48' },
+  { name: 'Phishing', value: 28, color: '#f97316' },
+  { name: 'Vulnerabilities', value: 22, color: '#eab308' },
+  { name: 'Policy Violations', value: 15, color: '#06b6d4' }
+];
 
 export default function Dashboard() {
   const { 
@@ -109,12 +147,12 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="page-container space-y-4 md:space-y-6 min-h-screen bg-background">
+    <div className="page-container space-y-4 md:space-y-6 min-h-screen bg-background w-full max-w-full overflow-x-hidden">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div className="min-w-0">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Security Dashboard</h1>
-          <p className="text-sm sm:text-base text-muted-foreground">Monitor and manage your system security posture</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">SecureShell Dashboard</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">Comprehensive security monitoring and management</p>
         </div>
         
         <div className="flex items-center gap-3">
@@ -127,11 +165,11 @@ export default function Dashboard() {
             Last {timeRange}
           </Button>
           <Button 
-            variant="gradient" 
+            variant="default" 
             size="lg"
             onClick={handleQuickAudit}
             disabled={isScanning}
-            className="min-w-[140px]"
+            className="min-w-[140px] glow-primary"
           >
             {isScanning ? (
               <>
@@ -148,14 +186,15 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Top Stats Grid */}
-      <div className="mobile-grid">
+      {/* Enhanced Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6">
         <StatCard
           title="Overall Compliance"
           value={`${complianceMetrics.overall}%`}
-          subtitle="Security posture score"
+          subtitle="Security posture"
           icon={Shield}
           trend={{ value: 5.2, isPositive: true }}
+          className="glow-primary"
         >
           <ComplianceRing 
             percentage={complianceMetrics.overall} 
@@ -167,44 +206,64 @@ export default function Dashboard() {
         <StatCard
           title="Critical Issues"
           value={criticalIssues}
-          subtitle={`${criticalIssues > 0 ? 'Requires attention' : 'All clear'}`}
+          subtitle="Need attention"
           icon={AlertTriangle}
-          className={criticalIssues > 0 ? "border-destructive/30 bg-destructive/5" : ""}
+          className={cn(criticalIssues > 0 ? "border-destructive/30 bg-destructive/5 glow-critical" : "glow-success")}
         />
 
         <StatCard
-          title="Rules Checked"
-          value={complianceMetrics.totalRules}
-          subtitle={`${complianceMetrics.passingRules} passing`}
-          icon={CheckCircle}
-          trend={{ value: 2.1, isPositive: true }}
+          title="Active Threats"
+          value="7"
+          subtitle="Blocked today"
+          icon={Zap}
+          className="glow-warning"
+        />
+
+        <StatCard
+          title="Systems Online"
+          value="24/26"
+          subtitle="Network status"
+          icon={Server}
+          trend={{ value: 1.2, isPositive: true }}
         />
 
         <StatCard
           title="Last Scan"
           value="2m ago"
-          subtitle="Automated daily scan"
+          subtitle="Auto scan"
           icon={Clock}
+        />
+
+        <StatCard
+          title="Data Protected"
+          value="2.4TB"
+          subtitle="Encrypted"
+          icon={Database}
+          trend={{ value: 8.1, isPositive: true }}
         />
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-        {/* Compliance Overview */}
-        <Card className="lg:col-span-2 mobile-card border-border/50">
+      {/* Enhanced Visualization Grid */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+        {/* Main Compliance Chart */}
+        <Card className="xl:col-span-2 mobile-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-primary" />
-              Compliance Trends
+              Security Trends & Analytics
             </CardTitle>
-            <CardDescription>
-              Security posture over time
-            </CardDescription>
+            <CardDescription>Real-time security metrics and compliance tracking</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[300px] w-full">
+          <CardContent className="chart-container">
+            <div className="chart-wrapper">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={demoChartData}>
+                <AreaChart data={demoChartData}>
+                  <defs>
+                    <linearGradient id="complianceGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
                   <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
                   <XAxis 
                     dataKey="date" 
@@ -220,39 +279,126 @@ export default function Dashboard() {
                       borderRadius: '8px'
                     }}
                   />
-                  <Line 
+                  <Area 
                     type="monotone" 
                     dataKey="compliance" 
                     stroke="hsl(var(--primary))" 
+                    fillOpacity={1}
+                    fill="url(#complianceGradient)"
                     strokeWidth={3}
-                    dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 4 }}
                   />
-                </LineChart>
+                </AreaChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
 
-        {/* Quick Actions */}
-        <Card className="mobile-card border-border/50">
+        {/* System Metrics Radial Chart */}
+        <Card className="mobile-card">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Common security tasks</CardDescription>
+            <CardTitle className="flex items-center gap-2">
+              <Cpu className="h-5 w-5 text-primary" />
+              System Health
+            </CardTitle>
+            <CardDescription>Resource utilization metrics</CardDescription>
+          </CardHeader>
+          <CardContent className="chart-container">
+            <div className="chart-wrapper">
+              <ResponsiveContainer width="100%" height="100%">
+                <RadialBarChart data={systemMetrics} innerRadius="30%" outerRadius="90%">
+                  <RadialBar dataKey="value" cornerRadius={10} fill="#3b82f6" />
+                  <Tooltip />
+                </RadialBarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+        {/* Threat Distribution */}
+        <Card className="mobile-card">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <PieChart className="h-5 w-5 text-primary" />
+              Threat Distribution
+            </CardTitle>
+            <CardDescription>Security threat categories</CardDescription>
+          </CardHeader>
+          <CardContent className="chart-container">
+            <div className="chart-wrapper">
+              <ResponsiveContainer width="100%" height="100%">
+                <RechartsPieChart>
+                  <Pie
+                    data={threatTypes}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, percent }) => `${name} ${(Number(percent) * 100).toFixed(0)}%`}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {threatTypes.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </RechartsPieChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Weekly Activity */}
+        <Card className="mobile-card">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-primary" />
+              Weekly Activity
+            </CardTitle>
+            <CardDescription>Scans and threat detection</CardDescription>
+          </CardHeader>
+          <CardContent className="chart-container">
+            <div className="chart-wrapper">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={weeklyData}>
+                  <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+                  <XAxis dataKey="day" fontSize={12} />
+                  <YAxis fontSize={12} />
+                  <Tooltip />
+                  <Bar dataKey="scans" fill="#3b82f6" />
+                  <Bar dataKey="threats" fill="#ef4444" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Quick Actions Enhanced */}
+        <Card className="mobile-card glow-primary">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Target className="h-5 w-5 text-primary" />
+              Quick Actions
+            </CardTitle>
+            <CardDescription>Essential security operations</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Button variant="outline" className="w-full justify-start" asChild>
+            <Button variant="outline" className="w-full justify-start hover:glow-primary" asChild>
               <a href="/cli">
                 <Search className="h-4 w-4" />
-                Run Full Audit
+                Full System Audit
               </a>
             </Button>
-            <Button variant="outline" className="w-full justify-start" asChild>
+            <Button variant="outline" className="w-full justify-start hover:glow-success" asChild>
               <a href="/audit">
                 <Wrench className="h-4 w-4" />
-                Apply Fixes
+                Apply Security Fixes
               </a>
             </Button>
-            <Button variant="outline" className="w-full justify-start" asChild>
+            <Button variant="outline" className="w-full justify-start hover:glow-warning" asChild>
               <a href="/reports">
                 <FileText className="h-4 w-4" />
                 Generate Report
@@ -261,21 +407,27 @@ export default function Dashboard() {
             <Button variant="outline" className="w-full justify-start" asChild>
               <a href="/rollback">
                 <RotateCcw className="h-4 w-4" />
-                View Backups
+                System Restore
+              </a>
+            </Button>
+            <Button variant="outline" className="w-full justify-start" asChild>
+              <a href="/profiles">
+                <Lock className="h-4 w-4" />
+                Security Profiles
               </a>
             </Button>
           </CardContent>
         </Card>
       </div>
 
-      {/* Bottom Grid */}
+      {/* Bottom Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-        {/* Top Issues */}
-        <Card className="mobile-card border-border/50">
+        {/* Enhanced Top Issues */}
+        <Card className="mobile-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-warning" />
-              Top Security Issues
+              Critical Security Issues
             </CardTitle>
             <CardDescription>Issues requiring immediate attention</CardDescription>
           </CardHeader>
@@ -291,9 +443,9 @@ export default function Dashboard() {
                 .map((rule, index) => (
                   <div 
                     key={rule.id} 
-                    className={cn("flex items-start gap-3 p-3 rounded-lg border stagger-item", 
-                      rule.severity === 'critical' ? 'border-critical/20 bg-critical/5' :
-                      rule.severity === 'high' ? 'border-destructive/20 bg-destructive/5' :
+                    className={cn("flex items-start gap-3 p-3 rounded-lg border stagger-item hover-lift", 
+                      rule.severity === 'critical' ? 'border-critical/20 bg-critical/5 glow-critical' :
+                      rule.severity === 'high' ? 'border-destructive/20 bg-destructive/5 glow-warning' :
                       'border-border bg-muted/30'
                     )}
                     style={{ animationDelay: `${index * 0.1}s` }}
@@ -311,7 +463,7 @@ export default function Dashboard() {
                         Target: <span className="text-success">{rule.desiredValue}</span>
                       </p>
                     </div>
-                    <Button variant="ghost" size="icon-sm" asChild>
+                    <Button variant="ghost" size="icon" asChild>
                       <a href={`/audit?rule=${rule.id}`}>
                         <Wrench className="h-3 w-3" />
                       </a>
@@ -322,21 +474,21 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Recent Activity */}
-        <Card className="mobile-card border-border/50">
+        {/* Enhanced Recent Activity */}
+        <Card className="mobile-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-primary" />
-              Recent Activity
+              Live Activity Feed
             </CardTitle>
-            <CardDescription>Latest security events and actions</CardDescription>
+            <CardDescription>Real-time security events and system activities</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {recentActivity.map((entry, index) => (
                 <div 
                   key={entry.id} 
-                  className={cn("flex items-start gap-3 stagger-item")}
+                  className={cn("flex items-start gap-3 stagger-item hover-lift p-2 rounded-lg transition-all duration-200")}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {getStatusIcon(entry.status)}

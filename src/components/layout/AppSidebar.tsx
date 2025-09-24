@@ -82,7 +82,7 @@ export function AppSidebar() {
         <Shield className="h-8 w-8 text-primary" />
         {!isCollapsed && (
           <div>
-            <h1 className="text-lg font-bold text-foreground">HardenTool</h1>
+            <h1 className="text-lg font-bold text-foreground">SecureShell</h1>
             <p className="text-xs text-muted-foreground">System Security</p>
           </div>
         )}
@@ -215,7 +215,7 @@ export function AppSidebar() {
         <div className="mt-auto p-4 border-t border-border">
           <div className="text-xs text-muted-foreground">
             <div className="font-medium">Version 2.1.0</div>
-            <div>© 2024 HardenTool</div>
+            <div>© 2024 SecureShell</div>
           </div>
         </div>
       )}
