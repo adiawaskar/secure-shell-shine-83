@@ -7,6 +7,12 @@ import { Layout } from "./components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import CLITerminal from "./pages/CLITerminal";
 import AuditResults from "./pages/AuditResults";
+import Reports from "./pages/Reports";
+import ActivityLogs from "./pages/ActivityLogs";
+import SecurityProfiles from "./pages/SecurityProfiles";
+import RollbackManager from "./pages/RollbackManager";
+import Settings from "./pages/Settings";
+import HelpGuide from "./pages/HelpGuide";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
